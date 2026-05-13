@@ -1,0 +1,34 @@
+package com.example.minijira.controller;
+
+import com.example.minijira.dto.ActivityLogDTO;
+import com.example.minijira.dto.DashboardStatsDTO;
+import com.example.minijira.service.DashboardService;
+import com.example.minijira.util.SecurityUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/dashboard")
+@PreAuthorize("isAuthenticated()")
+public class DashboardController {
+
+    private final DashboardService dashboardService;
+
+    public DashboardController(DashboardService dashboardService) {
+        this.dashboardService = dashboardService;
+    }
+
+    @GetMapping("/stats")
+    public DashboardStatsDTO getStats() {
+        return dashboardService.getDashboardStats(SecurityUtils.getCurrentUserId());
+    }
+
+    @GetMapping("/activity")
+    public List<ActivityLogDTO> getRecentActivity() {
+        return dashboardService.getRecentActivity();
+    }
+}

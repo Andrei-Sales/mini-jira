@@ -1,0 +1,2 @@
+-- Seed data is inserted by AppDataSeeder at startup (app.seed.enabled=true)
+-- This keeps BCrypt hashing inside the Spring Boot app instead of hard-coding hashes.
